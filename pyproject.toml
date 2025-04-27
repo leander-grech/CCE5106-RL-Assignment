@@ -1,0 +1,26 @@
+[build-system]
+# Build with the modern setuptools backend
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cce5106-rl-tutorial-solutions"
+version = "0.1.0"
+description = "Official solutions for the CCE5106 Reinforcement-Learning tutorial."
+readme = "README.md"
+authors = [{ name = "Leander Grech", email = "leander.grech@um.edu.mt" }]
+requires-python = ">=3.10"
+
+# Runtime dependencies detected from the source tree
+dependencies = [
+  "numpy>=1.23",
+  "torch>=2.0",                # picked up indirectly by SB3 but listed explicitly
+  "gymnasium>=0.30",
+  "stable-baselines3>=2.2",
+  "pandas>=2.0",
+  "matplotlib>=3.7",
+  "pyyaml>=6.0",
+]
+
+[project.urls]
+Source = "https://github.com/<org>/cce5106-rl-tutorial-solutions"
