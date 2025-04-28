@@ -4,9 +4,9 @@ import json
 from torch.nn import ReLU
 from datetime import datetime as dt
 from stable_baselines3 import PPO
+# TODO: Uncomment this to use SB3 callbacks
 # from stable_baselines3.common.callbacks import EvalCallback, CheckpointCallback
 from stable_baselines3.common.env_util import make_vec_env
-
 from cce5106.envs.um_flight_env import UMFlightEnv
 
 
@@ -16,6 +16,7 @@ def parse_args():
     parser.add_argument('--n', type=int, default=5, help='Number of flights initialised on a collision course')
     parser.add_argument('--m', type=int, default=5, help='Number of flights initialised on a random course')
     parser.add_argument('--max-steps', type=int, default=50, help='Maximum number of time-steps per episode')
+    # TODO: Tweak reward coefficients
     parser.add_argument('--collision-coeff', type=float, default=1.0, help='Collision coefficient scale used in reward method')
     parser.add_argument('--clearance-coeff', type=float, default=1.0, help='Number of clearances coefficient scale used in reward method')
     parser.add_argument('--invalid-coeff', type=float, default=1.0, help='Invalid actions coefficient scale used in reward method')
@@ -43,7 +44,6 @@ def parse_args():
 
 def ppo_learning_rate(x):
     lr1 = 3e-4
-
     return lr1 * x
 
 
@@ -110,19 +110,16 @@ def main(args, SEED=None):
         ak.pop('learning_rate')
         json.dump(ak, f, indent=10)
 
-    # Callbacks
-    """
-    ADD CALLBACKS HERE. See: https://stable-baselines3.readthedocs.io/en/master/guide/callbacks.html
-    """
+    # TODO: Add training checkpoint and evaluation callbacks here (See: https://stable-baselines3.readthedocs.io/en/master/guide/callbacks.html)
     callbacks = []
 
     # Create the PPO agent
     model = algo('MlpPolicy', env, verbose=1, tensorboard_log=tb_log_dir, policy_kwargs=policy_kwargs, **algo_kwargs)
 
     # Train the agent
+    # TODO: Add tensorboard logging (you can use tb_log_name param and/or explicitly log through custom EvalCallback)
     model.learn(total_timesteps=args.train_steps,
                 callback=callbacks,
-                # tb_log_name=model_name,
                 log_interval=args.log_freq)
 
     # Save the final model

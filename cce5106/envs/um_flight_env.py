@@ -1,5 +1,4 @@
 from typing import Any
-import yaml
 from copy import deepcopy
 import matplotlib as mpl
 import matplotlib.pyplot as plt
